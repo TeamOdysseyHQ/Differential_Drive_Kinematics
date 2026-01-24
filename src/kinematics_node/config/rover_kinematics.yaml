@@ -1,12 +1,12 @@
 rover_kinematics_node:
   ros__parameters:
-    wheel_base: 0.150          # m (your calibrated value)
-    wheel_diameter: 0.100      # m
+    wheel_base: 0.82 # m (your calibrated value)
+    wheel_diameter: 0.11      # m
     max_linear_speed: 0.8      # m/s physical max
     max_angular_speed: 2.0     # rad/s physical safe max
-    linear_usage: 0.6          # 60% of physical max speed
-    angular_usage: 0.5         # 50% of physical max rotation
-    max_rpm: 180.0
+    linear_usage: 0.5          # 60% of physical max speed
+    angular_usage: 0.4         # 50% of physical max rotation
+    max_rpm: 100
     cmd_vel_timeout: 1.0       # s
     input_cmd_topic: "/cmd_vel"      # standard cmd_vel topic
     output_topic: "/teensy_motor_rpms"   # RPMs to Teensy bridge
