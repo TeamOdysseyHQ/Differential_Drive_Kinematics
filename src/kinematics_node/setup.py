@@ -25,6 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
             'rover_kinematics_node = kinematics_node.rover_kinematics_node:main',
+            'teleop_keyboard = kinematics_node.teleop_keyboard:main',
+            'monitor_rpms = kinematics_node.monitor_rpms:main',
         ],
     },
 )
