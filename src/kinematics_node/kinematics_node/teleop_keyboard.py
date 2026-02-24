@@ -26,7 +26,7 @@ class TeleopKeyboard(Node):
         
         # Velocity increments per key press
         self.linear_step = 0.05
-        self.angular_step = 0.2
+        self.angular_step = 0.05
         
         # Ramping parameters (smooth acceleration over 1 second)
         self.publish_rate = 50.0  # Hz - higher rate for smoother ramping
