@@ -4,10 +4,10 @@ rover_kinematics_node:
     wheel_diameter: 0.11       # m
     max_linear_speed: 0.8      # m/s physical max
     max_angular_speed: 2.0     # rad/s physical safe max
-    linear_usage: 0.6          # 60% of physical max speed
-    angular_usage: 1.5         # 50% of physical max rotation
+    linear_usage: 0.7          # 60% of physical max speed
+    angular_usage: 0.5         # 50% of physical max rotation
     max_rpm: 90.0
     cmd_vel_timeout: 1.0       # s
     input_cmd_topic: "/cmd_vel"      # standard cmd_vel topic
-    output_topic: "/teensy_motor_rpms"   # RPMs to Teensy bridge
+    output_topic: "/teensy_motor_rpm"   # RPMs to Teensy bridge
     update_rate: 20.0          # Hz

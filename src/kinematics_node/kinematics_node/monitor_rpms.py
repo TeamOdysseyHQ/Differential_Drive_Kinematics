@@ -12,12 +12,12 @@ class RPMMonitor(Node):
         # Subscribe to the motor RPM output
         self.sub = self.create_subscription(
             Float32MultiArray,
-            '/teensy_motor_rpms',
+            '/teensy_motor_rpm',
             self.rpm_callback,
             10
         )
         
-        self.get_logger().info('RPM Monitor Started - Listening to /teensy_motor_rpms')
+        self.get_logger().info('RPM Monitor Started - Listening to /teensy_motor_rpm')
         print("\n" + "="*60)
         print("Monitoring Motor RPMs (6-wheel differential drive)")
         print("Wheels: 0,2,4 = LEFT | 1,3,5 = RIGHT")

@@ -70,6 +70,11 @@ class RoverKinematicsNode(Node):
         self.last_cmd = Twist()
         self.last_cmd_time = self.get_clock().now()
         
+        # Track previous velocities to detect changes
+        self.prev_linear = 0.0
+        self.prev_angular = 0.0
+        self.velocity_threshold = 0.001  # Minimum change to trigger publish
+        
         # Timer
         self.timer = self.create_timer(1.0 / self.update_rate, self.timer_callback)
         
@@ -93,6 +98,18 @@ class RoverKinematicsNode(Node):
             # Normalized inputs in [-1, 1]
             u_lin = max(-1.0, min(1.0, self.last_cmd.linear.x))
             u_ang = max(-1.0, min(1.0, self.last_cmd.angular.z))
+        
+        # Check if velocity changed significantly
+        linear_changed = abs(u_lin - self.prev_linear) > self.velocity_threshold
+        angular_changed = abs(u_ang - self.prev_angular) > self.velocity_threshold
+        
+        # Only publish if there's a change or timeout occurred
+        if not (linear_changed or angular_changed or (dt > self.cmd_vel_timeout and self.prev_linear != 0.0 or self.prev_angular != 0.0)):
+            return
+        
+        # Update previous values
+        self.prev_linear = u_lin
+        self.prev_angular = u_ang
         
         # Scale to real velocities
         v = u_lin * self.linear_usage * self.max_linear_speed       # m/s
@@ -127,6 +144,13 @@ class RoverKinematicsNode(Node):
         msg_out = Float32MultiArray()
         msg_out.data = data
         self.rpm_pub.publish(msg_out)
+        
+        # Log velocity changes for debugging
+        if linear_changed or angular_changed:
+            self.get_logger().debug(
+                f'Velocity changed: lin={u_lin:.3f}, ang={u_ang:.3f} -> '
+                f'RPM L={rpm_left:.1f}, R={rpm_right:.1f}'
+            )
 
 
 def main(args=None):
