@@ -10,4 +10,4 @@ rover_kinematics_node:
     cmd_vel_timeout: 1.0       # s
     input_cmd_topic: "/cmd_vel"      # standard cmd_vel topic
     output_topic: "/teensy_motor_rpm"   # RPMs to Teensy bridge
-    update_rate: 20.0          # Hz
+    update_rate: 50.0          # Hz - continuous publishing to keep Teensy watchdog fed (3s timeout)
